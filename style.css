@@ -677,17 +677,22 @@ footer {
     max-width: 600px;
 }
 
+
+
+.modal.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 .message-card {
-    background: rgba(30, 30, 30, 0.9);
-    /* Dark/Black background */
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Fireworks Background inside the card */
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnZ5YW14YmxlbjV5YW14YmxlbjV5YW14YmxlbjV5YW14eSZlcD12MV9naWZzX3NlYXJjaCZNfW/26tOZ42Mg6CKwzY08/giphy.gif') no-repeat center center/cover;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 20px;
     padding: 40px;
     color: #fff;
     text-align: center;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
     transform-style: preserve-3d;
     transform: rotateX(20deg) scale(0.8);
     opacity: 0;
@@ -701,13 +706,31 @@ footer {
 
 .message-header h2 {
     font-family: 'Dancing Script', cursive;
-    font-size: 3rem;
+    font-size: 3.5rem;
+    /* Larger */
     margin-bottom: 30px;
-    background: linear-gradient(to right, #fff, #ffd1ff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    text-shadow:
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 20px #ff00de,
+        0 0 30px #ff00de;
+    /* Neon Glow */
+    background: none;
+    -webkit-text-fill-color: initial;
+    animation: text-flicker 3s infinite alternate;
+}
+
+@keyframes text-flicker {
+    0% {
+        opacity: 1;
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00de;
+    }
+
+    100% {
+        opacity: 0.8;
+        text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 10px #ff00de;
+    }
 }
 
 .message-body p {
