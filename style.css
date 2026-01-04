@@ -678,15 +678,16 @@ footer {
 }
 
 .message-card {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(30, 30, 30, 0.9);
+    /* Dark/Black background */
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 20px;
     padding: 40px;
     color: #fff;
     text-align: center;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     transform-style: preserve-3d;
     transform: rotateX(20deg) scale(0.8);
     opacity: 0;
