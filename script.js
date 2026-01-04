@@ -336,26 +336,44 @@ if (messageBtn && messageModal) {
 }
 
 function fireworks() {
-    const duration = 5000;
-    const animationEnd = Date.now() + duration;
-    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+    // Renamed to Falling Confetti based on user feedback
+    const canvas = document.getElementById('fireworks-canvas');
+    if (!canvas) return;
 
-    function randomInRange(min, max) {
-        return Math.random() * (max - min) + min;
-    }
+    const myConfetti = confetti.create(canvas, {
+        resize: true,
+        useWorker: true
+    });
+
+    const animationEnd = Date.now() + 120000; // 2 minutes
+    const colors = ['#ff4081', '#00ff00', '#ffd700', '#ffffff', '#ff0000', '#0000ff'];
 
     const interval = setInterval(function () {
-        const timeLeft = animationEnd - Date.now();
+        const modal = document.getElementById('message-modal');
+        if (modal && modal.classList.contains('hidden')) {
+            return clearInterval(interval);
+        }
 
+        const timeLeft = animationEnd - Date.now();
         if (timeLeft <= 0) {
             return clearInterval(interval);
         }
 
-        const particleCount = 50 * (timeLeft / duration);
-        // since particles fall down, start a bit higher than random
-        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-    }, 250);
+        // Falling confetti from the top
+        myConfetti({
+            particleCount: 2,
+            angle: 270, // Fall straight down
+            spread: 55,
+            origin: { x: Math.random(), y: -0.1 }, // Start slightly above screen
+            colors: colors,
+            startVelocity: 20,
+            gravity: 0.6,
+            shapes: ['square'], // Rectangular/Square like the screenshot
+            scalar: 1.2,
+            drift: Math.random() * 0.5 - 0.25, // Slight drift left/right
+            ticks: 300 // Stay on screen longer
+        });
+    }, 20); // Frequent updates for smooth rain
 }
 
 function closeMessageModal() {
