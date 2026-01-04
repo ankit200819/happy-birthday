@@ -1,0 +1,671 @@
+:root {
+    --bg-color: #ffecd2;
+    --primary-color: #ff9a9e;
+    --secondary-color: #fcb69f;
+    --accent-color: #ff6a88;
+    --text-color: #5d4037;
+    --glass-bg: rgba(255, 255, 255, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.9);
+    --font-heading: 'Dancing Script', cursive;
+    --font-body: 'Outfit', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #ffd1ff);
+    background-size: 400% 400%;
+    animation: aurora 15s ease infinite;
+    font-family: var(--font-body);
+    color: var(--text-color);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+@keyframes aurora {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* --- Entrance Overlay --- */
+.entrance-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Rose Gold / Sunset Peach Gradient */
+    background: linear-gradient(135deg, #fad0c4 0%, #ff9a9e 100%);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 1s cubic-bezier(0.86, 0, 0.07, 1), opacity 1s ease;
+}
+
+.entrance-overlay.fade-out {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.envelope-container {
+    cursor: pointer;
+    text-align: center;
+    perspective: 1000px;
+}
+
+.envelope {
+    width: 220px;
+    height: 150px;
+    background: linear-gradient(to bottom right, #fff5e6, #ffe0b2);
+    /* Creamy paper gradient */
+    position: relative;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    animation: heartbeat-glow 2.5s infinite;
+}
+
+@keyframes heartbeat-glow {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+    }
+
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 25px 55px rgba(255, 105, 135, 0.3);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.envelope:hover {
+    animation: none;
+    transform: scale(1.05) translateY(-5px);
+}
+
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 110px solid transparent;
+    border-right: 110px solid transparent;
+    border-top: 110px solid #ff8a80;
+    /* Soft reddish-pink flap */
+    transform-origin: top;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+.entrance-overlay.open .flap {
+    transform: rotateX(180deg);
+}
+
+.body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Realistic paper texture overlay */
+    background:
+        linear-gradient(to bottom right, rgba(255, 255, 255, 0.4), transparent),
+        repeating-linear-gradient(45deg, rgba(255, 200, 200, 0.05) 0px, transparent 2px, transparent 6px);
+    z-index: 3;
+    pointer-events: none;
+    border-radius: 0 0 10px 10px;
+}
+
+.letter {
+    position: absolute;
+    background: #fff;
+    width: 200px;
+    height: 180px;
+    left: 10px;
+    bottom: 0;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.entrance-overlay.open .letter {
+    transform: translateY(-100px);
+}
+
+.heart-seal {
+    color: #d32f2f;
+    font-size: 3.5rem;
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+    background: radial-gradient(circle at 30% 30%, #ff5252, #c62828);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.click-hint {
+    margin-top: 60px;
+    font-family: var(--font-heading);
+    /* Use cursive font */
+    font-size: 2.2rem;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    /* Better readability */
+    animation: bounce 2s infinite ease-in-out;
+}
+
+/* --- Music Button --- */
+.music-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.music-btn:hover {
+    transform: scale(1.15) rotate(10deg);
+}
+
+.music-btn.playing {
+    animation: spin-slow 8s linear infinite;
+    background: var(--accent-color);
+    color: white;
+}
+
+@keyframes spin-slow {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* --- Main Content --- */
+.hidden {
+    display: none;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    z-index: 10;
+}
+
+h1 {
+    font-family: var(--font-heading);
+    font-size: 6rem;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #ff512f, #dd2476);
+    /* Pink/Red Gradient */
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.typewriter-text {
+    display: inline-block;
+    overflow: hidden;
+    /* Ensures the content is not revealed until the animation */
+    white-space: nowrap;
+    /* Keeps the content on a single line */
+    border-right: .15em solid orange;
+    /* The magnet cursor */
+    animation:
+        typing 3.5s steps(40, end),
+        blink-caret .75s step-end infinite;
+}
+
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: orange;
+    }
+}
+
+.highlight {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px var(--primary-color);
+}
+
+.subtitle {
+    font-size: 2rem;
+    max-width: 700px;
+    margin-bottom: 40px;
+    line-height: 1.6;
+    color: #5d4037;
+    /* Dark engaging brown */
+    font-weight: 500;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+    /* Soft highlight */
+}
+
+/* Floating Hearts Row */
+.heart-row {
+    margin-bottom: 50px;
+}
+
+.heart-row i {
+    font-size: 3rem;
+    margin: 0 15px;
+    color: #ff4081;
+    /* Vibrant Pink */
+    filter: drop-shadow(0 5px 15px rgba(255, 64, 129, 0.4));
+    animation: crazy-heart 2s infinite;
+}
+
+@keyframes crazy-heart {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2) rotate(-10deg);
+    }
+}
+
+/* Glass Button */
+/* Vibrant Gradient Button */
+.glass-btn {
+    padding: 20px 60px;
+    font-size: 1.5rem;
+    border-radius: 50px;
+    border: none;
+    background: linear-gradient(to right, #ff416c, #ff4b2b);
+    /* Sunset gradient */
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(255, 65, 108, 0.4);
+    transition: all 0.4s ease;
+    font-family: var(--font-body);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.glass-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(255, 65, 108, 0.6);
+    background: linear-gradient(to right, #ff4b2b, #ff416c);
+    /* Invert gradient on hover */
+}
+
+/* Gallery Section */
+.gallery-section {
+    padding: 100px 20px;
+    min-height: 100vh;
+    /* Keeping the aurora background */
+}
+
+.gallery-section h2 {
+    font-family: var(--font-heading);
+    text-align: center;
+    font-size: 5rem;
+    margin-bottom: 80px;
+    color: #fff;
+    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-grid {
+    display: flex;
+    /* Changed from grid to flex for scattered look */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 60px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* Polaroid Card with Scrapbook Feel */
+.glass-card {
+    background: #fff;
+    padding: 15px 15px 50px 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    width: 300px;
+    position: relative;
+    border-radius: 2px;
+    /* 3D Transform Setup */
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+    /* Fast response for tilt */
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Washi Tape Effect */
+.glass-card::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 35%;
+    width: 30%;
+    height: 35px;
+    background-color: rgba(255, 255, 255, 0.6);
+    background-image: repeating-linear-gradient(45deg,
+            transparent,
+            transparent 5px,
+            rgba(233, 30, 99, 0.1) 5px,
+            rgba(233, 30, 99, 0.1) 10px);
+    transform: rotate(-3deg);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    z-index: 5;
+    opacity: 0.9;
+}
+
+/* Sticker Decoration (Randomly applied via JS usually, but here fixed for simplicity or via nth-child) */
+.glass-card::after {
+    content: '💖';
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    transform: rotate(15deg);
+    opacity: 0.8;
+}
+
+/* Messy Scatter Effect (Base Rotation) */
+.glass-card:nth-child(odd) {
+    transform: rotate(2deg);
+}
+
+.glass-card:nth-child(even) {
+    transform: rotate(-2deg);
+    margin-top: 30px;
+}
+
+.glass-card:nth-child(3n) {
+    transform: rotate(1deg) translateY(-10px);
+}
+
+/* Hover Lift (managed via JS for tilt, but basic CSS hover backup) */
+.glass-card.hover-active {
+    z-index: 20;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+}
+
+.img-box {
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    background: #eee;
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.img-box img,
+.img-box video.card-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(15%) contrast(105%);
+    transition: transform 0.8s ease;
+}
+
+.glass-card:hover .img-box img,
+.glass-card:hover .img-box video.card-video {
+    transform: scale(1.1);
+    filter: sepia(0%) contrast(100%);
+}
+
+.card-content {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 0 10px;
+    opacity: 0;
+    /* Hidden by default */
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+    z-index: 10;
+}
+
+.glass-card:hover .card-content {
+    opacity: 1;
+    /* Show on hover */
+    transform: translateY(0);
+}
+
+.card-content p {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: #d32f2f;
+    /* Dark Red for contrast */
+    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+    font-weight: 700;
+}
+
+.small-heart {
+    display: none;
+    /* Hide for polaroid look */
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 60px;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+/* Tablet/Mobile Responsive */
+@media (max-width: 1024px) {
+    .gallery-grid {
+        gap: 30px;
+        justify-content: center;
+    }
+
+    .glass-card {
+        width: 45%;
+        /* 2 per line on tablet */
+        margin-top: 0 !important;
+        /* Reset scatter effect for clean grid */
+        transform: rotate(0) !important;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 3.5rem;
+    }
+
+    .typewriter-text {
+        white-space: normal;
+        animation: none;
+        border: none;
+    }
+
+    .gallery-grid {
+        gap: 40px;
+    }
+
+    .glass-card {
+        width: 100%;
+        /* 1 per line on mobile */
+        max-width: 350px;
+        margin-top: 0 !important;
+        transform: rotate(0deg) !important;
+    }
+
+    .subtitle {
+        font-size: 1.4rem;
+        padding: 0 20px;
+    }
+}
+
+/* --- Video Modal Styles --- */
+.modal {
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    position: relative;
+    width: auto;
+    max-width: 90%;
+    /* Prevent overflow on mobile */
+    background: transparent;
+    border-radius: 15px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: none;
+    backdrop-filter: none;
+    padding: 0;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-content video,
+.modal-content iframe {
+    max-height: 80vh;
+    /* Limit height so vertical videos fit nicely */
+    max-width: 100%;
+    width: auto;
+    /* Allow width to adjust to aspect ratio */
+    border-radius: 15px;
+    display: block;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    margin: 0 auto;
+}
+
+/* Specific fix for YouTube Iframes to keep aspect ratio if needed, 
+   though 'width: auto' usually suffices if height is controlled. 
+   For 16:9 embeds, we might want width 100%. */
+.modal-content iframe {
+    width: 100%;
+    /* YouTubes are usually horizontal */
+    aspect-ratio: 16/9;
+    height: auto;
+}
+
+.close-modal {
+    position: absolute;
+    top: -50px;
+    right: -10px;
+    color: #fff;
+    background: rgba(255, 64, 129, 0.8);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border: 2px solid #fff;
+}
+
+.close-modal:hover {
+    background: #ff4081;
+    transform: rotate(90deg);
+}
+
+/* Play Icon Overlay */
+.play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.8);
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    z-index: 5;
+    pointer-events: none;
+    /* Let clicks pass to card */
+}
+
+.glass-card:hover .play-overlay {
+    transform: translate(-50%, -50%) scale(1.2);
+    color: #fff;
+}

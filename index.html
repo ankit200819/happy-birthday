@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! 🎉</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Outfit:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Loading/Entrance Screen -->
+    <div id="entrance-screen" class="entrance-overlay">
+        <div class="envelope-container">
+            <div class="envelope">
+                <div class="flap"></div>
+                <div class="body"></div>
+                <div class="letter">
+                    <i class="fa-solid fa-heart heart-seal"></i>
+                </div>
+            </div>
+            <p class="click-hint">Click to Open ✨</p>
+        </div>
+    </div>
+
+    <!-- Background Audio (Hidden) -->
+    <audio id="bg-music" loop>
+        <source src="images/birthday_song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Music Control -->
+    <button id="music-toggle" class="music-btn hidden">
+        <i class="fa-solid fa-music"></i>
+    </button>
+
+    <!-- Main Content -->
+    <main id="main-content" class="hidden">
+
+        <!-- Floating Elements Container -->
+        <div id="floating-elements"></div>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 data-aos="zoom-in" data-aos-duration="1500"><span class="typewriter-text">Happy Birthday, My
+                    Love!</span></h1>
+            <p class="subtitle" data-aos="fade-up" data-aos-delay="2500">Today is all about celebrating <b>you</b> and
+                the joy you bring to my life.</p>
+
+            <div class="heart-row" data-aos="fade-up" data-aos-delay="3000">
+                <i class="fa-solid fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
+            </div>
+
+            <button id="celebrate-btn" class="glass-btn" data-aos="fade-up" data-aos-delay="3500">
+                Start the Celebration 🥳
+            </button>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="gallery-section">
+            <h2 data-aos="fade-down">Our Beautiful Memories 💖</h2>
+
+            <div class="gallery-grid">
+                <!-- Card 1 -->
+                <div class="glass-card" data-aos="fade-up">
+                    <div class="img-box">
+                        <img src="images/3034.jpg" alt="Memory 1">
+                    </div>
+                    <!-- Caption Text (Visible on Hover) -->
+                    <div class="card-content">
+                        <p>When our eyes first met...</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="img-box">
+                        <img src="images/3035.jpg" alt="Memory 2">
+                    </div>
+                    <div class="card-content">
+                        <p>Laughter is sweeter with you</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="img-box">
+                        <img src="images/3036.jpg" alt="Memory 3">
+                    </div>
+                    <div class="card-content">
+                        <p>Adventures of a lifetime</p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="img-box">
+                        <img src="images/3037.jpg" alt="Memory 4">
+                    </div>
+                    <div class="card-content">
+                        <p>My quiet happy place</p>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="img-box">
+                        <img src="images/3038.jpg" alt="Memory 5">
+                    </div>
+                    <div class="card-content">
+                        <p>Your smile is my favorite</p>
+                    </div>
+                </div>
+
+                <!-- Card 6 (Live Video Card) -->
+                <div class="glass-card" id="video-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="img-box">
+                        <!-- Video playing directly in the card -->
+                        <video src="images/Picsart_26-01-04_01-31-17-546.mp4" autoplay muted loop playsinline
+                            class="card-video"></video>
+                    </div>
+                    <div class="card-content">
+                        <p>Memories to Cherish</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>Made with ❤️ just for you.</p>
+        </footer>
+
+    </main>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+
+            <!-- OPTION 1: Local Video File (Active) -->
+            <video id="birthday-video" controls loop>
+                <source src="images/Picsart_26-01-04_01-31-17-546.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <!-- OPTION 2: YouTube Link (Uncomment to use) -->
+            <!-- 
+            <iframe width="560" height="315" 
+                src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE" 
+                title="YouTube video player" frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe> 
+            -->
+        </div>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
