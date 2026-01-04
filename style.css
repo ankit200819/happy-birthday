@@ -669,3 +669,142 @@ footer {
     transform: translate(-50%, -50%) scale(1.2);
     color: #fff;
 }
+
+/* --- Special Message Modal --- */
+.message-card-container {
+    perspective: 1500px;
+    width: 90%;
+    max-width: 600px;
+}
+
+.message-card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 40px;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    transform-style: preserve-3d;
+    transform: rotateX(20deg) scale(0.8);
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal.show .message-card {
+    transform: rotateX(0) scale(1);
+    opacity: 1;
+}
+
+.message-header h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem;
+    margin-bottom: 30px;
+    background: linear-gradient(to right, #fff, #ffd1ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.message-body p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-weight: 300;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.message-body .highlight-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    color: #ffd700;
+    /* Gold */
+    margin-top: 30px;
+    text-shadow: 0 2px 10px rgba(255, 215, 0, 0.4);
+}
+
+.message-footer {
+    font-size: 2rem;
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+        text-shadow: 0 0 10px #fff;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+.floating-heart {
+    position: absolute;
+    color: #ff4081;
+    font-size: 1.5rem;
+    animation: floatUp 3s ease-in-out infinite;
+    opacity: 0.8;
+}
+
+.message-header .floating-heart:first-child {
+    top: 20px;
+    left: 20px;
+}
+
+.message-header .floating-heart:last-child {
+    bottom: 20px;
+    right: 20px;
+    animation-delay: 1.5s;
+}
+
+.close-message {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    background: #ff4081;
+    color: #fff;
+    border: 2px solid #fff;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-message:hover {
+    transform: rotate(90deg) scale(1.1);
+    background: #f50057;
+}
+
+/* Mobile responsive for message */
+@media (max-width: 768px) {
+    .message-card {
+        padding: 30px 20px;
+    }
+
+    .message-header h2 {
+        font-size: 2.2rem;
+    }
+
+    .message-body p {
+        font-size: 1rem;
+    }
+}

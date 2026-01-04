@@ -304,3 +304,40 @@ function closeVideoModal() {
         // if (isPlaying && musicBtn.classList.contains('playing')) bgMusic.play();
     }, 300); // Wait for fade out
 }
+
+// --- 8. Special Message Modal ---
+const messageBtn = document.getElementById('message-btn');
+const messageModal = document.getElementById('message-modal');
+const closeMessageBtn = document.querySelector('.close-message');
+
+if (messageBtn && messageModal) {
+    messageBtn.addEventListener('click', () => {
+        messageModal.classList.remove('hidden');
+        // Small delay to allow display:block to apply before adding opacity class
+        setTimeout(() => {
+            messageModal.classList.add('show');
+            // Trigger confetti for celebration effect!
+            fireConfetti();
+        }, 10);
+    });
+
+    if (closeMessageBtn) {
+        closeMessageBtn.addEventListener('click', () => {
+            closeMessageModal();
+        });
+    }
+
+    // Close on clicking outside
+    window.addEventListener('click', (e) => {
+        if (e.target == messageModal) {
+            closeMessageModal();
+        }
+    });
+}
+
+function closeMessageModal() {
+    messageModal.classList.remove('show');
+    setTimeout(() => {
+        messageModal.classList.add('hidden');
+    }, 600); // Wait for transition
+}
