@@ -184,45 +184,52 @@ function createFloatingElements() {
     const icons = ['❤️', '🦋', '🌸', '✨', '💌', '🧸', '💖', '💐'];
     const phrases = ['I Love You', 'You are Magic', 'My Everything', 'Happy Birthday', 'Forever & Always', 'Soulmate', 'Cutie'];
 
-    // Moderate count
-    const count = 30;
+    // Fewer elements for more spacing
+    const iconCount = 15;
+    const phraseCount = 8;
 
-    for (let i = 0; i < count; i++) {
+    // Create icons (spread across screen)
+    for (let i = 0; i < iconCount; i++) {
         const el = document.createElement('div');
-
-        const isPhrase = Math.random() > 0.6;
-
-        if (isPhrase) {
-            el.innerText = phrases[Math.floor(Math.random() * phrases.length)];
-            el.className = 'floating-phrase';
-            el.style.fontSize = Math.random() * 1.5 + 1.2 + 'rem';
-            el.style.fontFamily = "'Dancing Script', cursive";
-            el.style.color = '#ffffff';
-            el.style.fontWeight = 'bold';
-            el.style.textShadow = '0 2px 4px rgba(233, 30, 99, 0.5)';
-
-            // CORRECTION: Avoid edges being cut off. 
-            // Use 5vw - 20vw (Left) and 80vw - 95vw (Right)
-            if (Math.random() > 0.5) {
-                el.style.left = (Math.random() * 15 + 5) + 'vw';
-            } else {
-                el.style.left = (Math.random() * 15 + 75) + 'vw';
-            }
-
-        } else {
-            el.innerText = icons[Math.floor(Math.random() * icons.length)];
-            el.style.fontSize = Math.random() * 25 + 15 + 'px';
-            el.style.left = Math.random() * 100 + 'vw';
-        }
-
+        el.innerText = icons[Math.floor(Math.random() * icons.length)];
+        el.style.fontSize = Math.random() * 25 + 15 + 'px';
+        el.style.left = (i * (100 / iconCount) + Math.random() * 5) + 'vw';
         el.style.position = 'fixed';
         el.style.top = Math.random() * 100 + 'vh';
         el.style.opacity = Math.random() * 0.4 + 0.3;
-
         el.style.animation = `float ${Math.random() * 10 + 10}s linear infinite`;
         el.style.zIndex = -1;
         el.style.pointerEvents = 'none';
+        container.appendChild(el);
+    }
 
+    // Create phrases (spread evenly with more separation)
+    for (let i = 0; i < phraseCount; i++) {
+        const el = document.createElement('div');
+        el.innerText = phrases[i % phrases.length];
+        el.className = 'floating-phrase';
+        el.style.fontSize = Math.random() * 1.5 + 1.8 + 'rem';
+        el.style.fontFamily = "'Dancing Script', cursive";
+        el.style.color = '#ffffff';
+        el.style.fontWeight = '800';
+        el.style.textShadow = '0 2px 15px rgba(220, 20, 60, 0.8), 0 0 30px rgba(220, 20, 60, 0.5)';
+
+        // Distribute phrases evenly: alternate left and right sides
+        if (i % 2 === 0) {
+            el.style.left = (5 + (i / 2) * 10) + 'vw'; // Left side: 5vw, 15vw, 25vw...
+        } else {
+            el.style.left = (75 + ((i - 1) / 2) * 6) + 'vw'; // Right side: 75vw, 81vw, 87vw...
+        }
+
+        // Spread vertically with even distribution
+        el.style.top = (10 + i * 12) + 'vh';
+
+        el.style.position = 'fixed';
+        el.style.opacity = Math.random() * 0.2 + 0.2;
+        el.style.animation = `float ${Math.random() * 10 + 12}s linear infinite`;
+        el.style.animationDelay = (i * 0.5) + 's';
+        el.style.zIndex = -1;
+        el.style.pointerEvents = 'none';
         container.appendChild(el);
     }
 }
